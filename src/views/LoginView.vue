@@ -1,0 +1,61 @@
+<script setup>
+import { reactive } from 'vue';
+import useLogin from '../composables/login';
+
+const { login, errors } = useLogin();
+
+const form = reactive({
+  email: '',
+  password: '',
+});
+</script>
+
+<template>
+  <div class="mt-12">
+    <form
+      class="max-w-md mx-auto p-4 bg-white shadow-md rounded-md"
+      @submit.prevent="login(form)"
+    >
+      <div class="mb-6">
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900"
+          >Your email</label
+        >
+        <input
+          type="email"
+          id="email"
+          v-model="form.email"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="name@example.com"
+          required
+        />
+        <div v-if="errors.email">
+          <span class="text-sm text-red-400">{{ errors.email[0] }}</span>
+        </div>
+      </div>
+      <div class="mb-6">
+        <label
+          for="password"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Your password</label
+        >
+        <input
+          type="password"
+          id="password"
+          v-model="form.password"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="*******"
+          required
+        />
+        <div v-if="errors.password">
+          <span class="text-sm text-red-400">{{ errors.password[0] }}</span>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</template>
